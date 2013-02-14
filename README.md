@@ -150,7 +150,7 @@ For this example, we are going to look at a particular product that is sold by s
 ```javascript
 // Build the query
 sem3.products.add( "offers", "sem3_id", "4znupRCkN6w2Q4Ke4s6sUC");
-sem3.products.add( "offers", "seller", ["ATRQ56T3H9TM5","LFleurs","Frys","Walmart"] );
+sem3.products.add( "offers", "seller", ["LFleurs","Frys","Walmart"] );
 sem3.products.add( "offers", "currency", "USD");
 sem3.products.add( "offers", "price", "gte", 30);
 sem3.products.add( "offers", "lastrecorded_at", "gte", 1348654600);
