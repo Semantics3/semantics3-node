@@ -87,7 +87,7 @@ sem3.products.get_products(
       sem3.products.iterate_products(
          function(err, products) {
             if (err) {
-               console.log("Couldn't execute query: iterate_products");
+               console.log("Couldn't execute request: iterate_products");
                return;
             }
             console.log( "Successfully retrieved next page of products:\n", JSON.stringify( products ) );
@@ -118,7 +118,7 @@ sem3.products.get_products(
          return;
       }
     
-      // View the results of the query
+      // View the results of the request
       console.log( "Results of request:\n" + JSON.stringify( products ) );
    }
 );
