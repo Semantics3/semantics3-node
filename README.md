@@ -65,7 +65,7 @@ var endpoint = "products";
 var method = "GET";
 var jsonStr = '{"search" : "nike"}';
 
-sem3.run_query( endpoint, jsonStr, method,function(err, products) {
+sem3.run_query(endpoint, jsonStr, method, function(err, products) {
     if (err) {
         return console.error("Couldn't execute query: get_products");
     }
