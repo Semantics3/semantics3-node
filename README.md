@@ -175,10 +175,10 @@ sem3.categories.get_categories(
    }
 );
 ```
-### More methods
+#### utility methods
 
 | method        | Description           
-| ------------- |:-------------:
+| ------------- |:-------------
 | `sem3.products.get_results_json()`     | returns the result json string from the previous query
 | `sem3.products.clear()`                | clears all the fields in the query
 | `sem3.run_query(endpoint, rawJson, method, callback)`  | You can use this method to send raw JSON string in the request
