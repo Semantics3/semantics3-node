@@ -59,6 +59,23 @@ sem3.products.get_products(
 );
 ```
 
+Alternatively, you can send a raw JSON string
+```javascript
+var endpoint = "products";
+var method = "GET";
+var jsonStr = '{"search" : "nike"}';
+
+sem3.run_query( endpoint, jsonStr, method,function(err, products) {
+    if (err) {
+        return console.error("Couldn't execute query: get_products");
+    }
+    
+    console.log( products );
+});
+```
+
+
+
 ## Sample Requests
 
 The following requests show you how to interface with some of the core functionality of the Semantics3 Products API:
@@ -175,13 +192,6 @@ sem3.categories.get_categories(
    }
 );
 ```
-#### utility methods
-
-| method        | Description           
-| ------------- |:-------------
-| `sem3.products.get_results_json()`     | returns the result json string from the previous query
-| `sem3.products.clear()`                | clears all the fields in the query
-| `sem3.run_query(endpoint, rawJson, method, callback)`  | You can use this method to send raw JSON string in the request
 
 ## Webhooks
 You can use webhooks to get near-real-time price updates from Semantics3. 
@@ -295,6 +305,14 @@ Once you have created a webhook and registered events on it, notifications will 
     }]
 }
 ```
+
+### Additional utility methods
+
+| method        | Description           
+| ------------- |:-------------
+| `sem3.products.get_results_json()`     | returns the result json string from the previous query
+| `sem3.products.clear()`                | clears all the fields in the query
+| `sem3.run_query(endpoint, rawJson, method, callback)`  | You can use this method to send raw JSON string in the request
 
 
 ## Contributing
