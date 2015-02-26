@@ -175,6 +175,14 @@ sem3.categories.get_categories(
    }
 );
 ```
+### More methods
+
+| method        | Description           
+| ------------- |:-------------:
+| `sem3.products.get_results_json()`     | returns the result json string from the previous query
+| `sem3.products.clear()`                | clears all the fields in the query
+| `sem3.run_query(endpoint, rawJson, method, callback)`  | You can use this method to send raw JSON string in the request
+
 ## Webhooks
 You can use webhooks to get near-real-time price updates from Semantics3. 
 
@@ -188,7 +196,7 @@ var params = {
     webhook_uri : "http://mydomain.com/webhooks-callback-url"
 };
 
-sem3.products.run_query("webhooks", params, "POST", function(err, response){
+sem3.run_query("webhooks", params, "POST", function(err, response){
     if(err)
         return console.error(err);
 
@@ -200,7 +208,7 @@ sem3.products.run_query("webhooks", params, "POST", function(err, response){
 ```
 To fetch existing webhooks
 ```javascript
-sem3.products.run_query("webhooks", null, "GET", function(err, response){
+sem3.run_query("webhooks", null, "GET", function(err, response){
     if(err)
         return console.error(err);
 
@@ -214,7 +222,7 @@ To remove a webhook
 var webhook_id = '7JcGN81u';
 var endpoint = "webhooks/" + webhook_id ;
 
-sem3.products.run_query( endpoint, null, "DELETE", function(err, response){
+sem3.run_query( endpoint, null, "DELETE", function(err, response){
     if(err)
         return console.error(err);
 
@@ -242,7 +250,7 @@ var params = {
 var webhook_id = '7JcGN81u';
 var endpoint = "webhooks/" + webhook_id + "/events";
 
-sem3.products.run_query(endpoint, params, "POST", function(err, response){
+sem3.run_query(endpoint, params, "POST", function(err, response){
     if(err)
         return console.error(err);
 
@@ -258,7 +266,7 @@ To fetch all registered events for a give webhook
 var webhook_id = '7JcGN81u';
 var endpoint = "webhooks/" + webhook_id + "/events";
 
-sem3.products.run_query(endpoint, null, "GET", function(err, response){
+sem3.run_query(endpoint, null, "GET", function(err, response){
     if(err)
         return console.error(err);
 
