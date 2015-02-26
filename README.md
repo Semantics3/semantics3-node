@@ -175,6 +175,119 @@ sem3.categories.get_categories(
    }
 );
 ```
+## Webhooks
+You can use webhooks to get near-real-time price updates from Semantics3. 
+
+### Creating a webhook
+
+You can register a webhook with Semantics3 by sending a POST request to `"webhooks"` endpoint.
+To verify that your URL is active, a GET request will be sent to your server with a `verification_code` parameter. Your server should respond with `verification_code` in the response body to complete the verification process.
+
+```javascript
+var params = {
+    webhook_uri : "http://mydomain.com/webhooks-callback-url"
+};
+
+sem3.products.run_query("webhooks", params, "POST", function(err, response){
+    if(err)
+        return console.error(err);
+
+    var webhookObject = JSON.parse(response);
+    console.log( webhookObject[ "id" ] );
+    console.log( webhookObject[ "webhook_uri" ] );
+});
+
+```
+To fetch existing webhooks
+```javascript
+sem3.products.run_query("webhooks", null, "GET", function(err, response){
+    if(err)
+        return console.error(err);
+
+    var webhooksArr = JSON.parse(response);
+    console.log( webhooksArr );
+});
+```
+
+To remove a webhook
+```javascript
+var webhook_id = '7JcGN81u';
+var endpoint = "webhooks/" + webhook_id ;
+
+sem3.products.run_query( endpoint, null, "DELETE", function(err, response){
+    if(err)
+        return console.error(err);
+
+    console.log( response );
+});
+
+```
+
+### Registering events
+Once you register a webhook, you can start adding events to it. Semantics3 server will send you notifications when these events occur.
+To register events for a specific webhook send a POST request to the `"webhooks/{webhook_id}/events"` endpoint
+
+```javascript
+var params = {
+    "type": "price.change",
+    "product": {
+        "sem3_id": "1QZC8wchX62eCYS2CACmka"
+    },
+    "constraints": {
+        "gte": 10,
+        "lte": 100
+    }
+};
+
+var webhook_id = '7JcGN81u';
+var endpoint = "webhooks/" + webhook_id + "/events";
+
+sem3.products.run_query(endpoint, params, "POST", function(err, response){
+    if(err)
+        return console.error(err);
+
+    var eventObject = JSON.parse(response);
+    console.log( eventObject[ "id" ] );
+    console.log( eventObject[ "type" ] );
+    console.log( eventObject[ "product" ] );
+});
+```
+
+To fetch all registered events for a give webhook
+```javascript
+var webhook_id = '7JcGN81u';
+var endpoint = "webhooks/" + webhook_id + "/events";
+
+sem3.products.run_query(endpoint, null, "GET", function(err, response){
+    if(err)
+        return console.error(err);
+
+    var eventArr = JSON.parse(response);
+    console.log( eventArr );
+});
+```
+
+### Webhook Notifications
+Once you have created a webhook and registered events on it, notifications will be sent to your registered webhook URI via a POST request when the corresponding events occur. Make sure that your server can accept POST requests. Here is how a sample notification object looks like
+```javascript
+{
+    "type": "price.change",
+    "event_id": "XyZgOZ5q",
+    "notification_id": "X4jsdDsW",
+    "changes": [{
+        "site": "abc.com",
+        "url": "http://www.abc.com/def",
+        "previous_price": 45.50,
+        "current_price": 41.00
+    }, {
+        "site": "walmart.com",
+        "url": "http://www.walmart.com/ip/20671263",
+        "previous_price": 34.00,
+        "current_price": 42.00
+    }]
+}
+```
+
 
 ## Contributing
 
@@ -184,6 +297,7 @@ Use GitHub's standard fork/commit/pull-request cycle.  If you have any questions
 
 * Sivamani VARUN <varun@semantics3.com>
 * GOVIND Chandrasekhar <govind@semantics3.com>
+* Nagappan Nachiappan <nagappan@semantics3.com>
 
 ## Copyright
 
